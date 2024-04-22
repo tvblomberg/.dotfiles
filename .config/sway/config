@@ -25,7 +25,7 @@ set $rofi_cmd rofi \
 # Shows a combined list of the applications with desktop files and
 # executables from PATH.
 # TODO: add window with the next release of rofi-wayland
-set $menu $rofi_cmd -show combi -combi-modes drun#run -modes combi
+set $menu $rofi_cmd -show drun
 
 ### Output configuration
 #
@@ -38,6 +38,27 @@ output * bg ~/background-images/background.png fill
 #
 #   output HDMI-A-1 resolution 1920x1080 position 1920,0
 output eDP-1 scale 1.5
+output DP-10 resolution 2560x1440
+
+# Set your laptop screen name
+set $laptop_screen 'eDP-1'
+
+# Clamshell mode or lock & sleep
+# A lock command used in several places
+set $lock_script swaylock
+
+# A sleep command used in several places.
+# We leave a bit of time for locking to happen before putting the system to sleep
+set $sleep $lock_script && sleep 3 && systemctl suspend
+
+# Triggers a short notification
+set $notify dunstify --timeout 1500
+
+# This is a if/else statement: [ outputs_count == 1 ] && true || false
+bindswitch --reload --locked lid:on exec '[ $(swaymsg -t get_outputs | grep name | wc -l) == 1 ] && ($sleep) || ($notify "Clamshell mode" "Laptop screen off" && swaymsg output $laptop_screen disable)'
+
+bindswitch --reload --locked lid:off output $laptop_screen enable
+
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 
 ### Idle configuration
@@ -80,13 +101,17 @@ output eDP-1 scale 1.5
 # Basics:
 #
     # Start a terminal
-    bindsym $mod+Return exec $term
+    bindsym $mod+Return exec $term -e distrobox-enter norm
+
+    bindsym $mod+p exec ~/.config/rofi/dev-environments.sh
 
     # Kill focused window
     bindsym $mod+Shift+q kill
 
     # Start your launcher
     bindsym $mod+d exec $menu
+    # Lock Screen
+    bindsym $mod+Shift+Escape exec swaylock
 
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
@@ -219,12 +244,22 @@ default_border pixel 1
 font pango:monospace 0
 #titlebar_padding 1
 #titlebar_border_thickness 0
+client.focused #787c99 #787c99 #787c99 #787c99
+client.unfocused #16161e #16161e #16161e #16161e
 
 # Opacity of windows
 set $opacity 0.9
 for_window [class=".*"] opacity $opacity
 for_window [app_id=".*"] opacity $opacity
 
+# GTK Theming
+
+set $gnome-schema org.gnome.desktop.interface
+
+exec_always {
+    gsettings set $gnome-schema gtk-theme 'Tokyonight-Dark-Moon-B-LB'
+    gsettings set $gnome-schema icon-theme 'Dracula'
+}
 # Include configs from 3 locations:
 #  - /usr/share/sway/config.d
 #  - /etc/sway/config.d
