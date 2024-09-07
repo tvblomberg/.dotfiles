@@ -137,3 +137,6 @@ else
 fi
 
 export PATH="$PATH:/opt/nvim-linux64/bin"
+
+export ANDROID_HOME=/home/invincent/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools
