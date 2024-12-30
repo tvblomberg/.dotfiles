@@ -15,7 +15,7 @@ set $up k
 set $right l
 # Your preferred terminal emulator
 # Recommends: foot
-set $term foot
+set $term ghostty
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
@@ -39,6 +39,7 @@ output * bg ~/background-images/background.png fill
 #   output HDMI-A-1 resolution 1920x1080 position 1920,0
 output eDP-1 scale 1.5
 output DP-10 resolution 2560x1440
+output DP-2 scale 1.5
 
 # Set your laptop screen name
 set $laptop_screen 'eDP-1'
@@ -100,9 +101,13 @@ bindswitch --reload --locked lid:off output $laptop_screen enable
 #
 # Basics:
 #
+    # Global search
+    bindsym $mod+Shift+f exec foot --app-id=global-search ~/bin/global_search.sh
+
     # Start a terminal
     bindsym $mod+Return exec $term -e distrobox-enter norm
-
+    
+    # List Distrobox environments
     bindsym $mod+p exec ~/.config/rofi/dev-environments.sh
 
     # Kill focused window
@@ -248,9 +253,13 @@ client.focused #787c99 #787c99 #787c99 #787c99
 client.unfocused #16161e #16161e #16161e #16161e
 
 # Opacity of windows
-#set $opacity 0.9
+set $opacity 0.98
 #for_window [class=".*"] opacity $opacity
 #for_window [app_id=".*"] opacity $opacity
+for_window [app_id="foot"] opacity $opacity
+for_window [instance="code"] opacity $opacity
+for_window [app_id="global-search"] floating enable, resize set 80% 80%
+
 
 # GTK Theming
 

@@ -17,6 +17,7 @@
         "custom/media"
     ],
     "modules-right": [
+	"custom/pwr",
         "pulseaudio",
         "cpu",
         "memory",
@@ -54,10 +55,12 @@
     },
     "cpu": {
         "format": "{usage}% ",
-        "tooltip": false
+        "tooltip": false,
+	"on-click": "foot btop"
     },
     "memory": {
-        "format": "{}% "
+        "format": "{}% ",
+	"on-click": "foot btop"
     },
     "temperature": {
         // "thermal-zone": 2,
@@ -118,7 +121,7 @@
         "on-click": "pavucontrol"
     },
     "custom/media": {
-        "format": "{icon} {}",
+        "format": "{0} {1}",
         "return-type": "json",
         "max-length": 40,
         "format-icons": {
@@ -140,6 +143,12 @@
       "format": "  ",
       "tooltip": false,
       "on-click": "~/.config/rofi/dev-environments.sh"
+    },
+    "custom/pwr": {
+	"return-type": "json",
+	"interval": 1,
+	"exec": "~/.config/waybar/power-pull.sh",
+	"on-click": "~/.config/waybar/cycle-power.sh"
     }
 }
 

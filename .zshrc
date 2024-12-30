@@ -100,6 +100,9 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles --work-tree=$HOME"
+# Run host commands so I dont need to leave my main container
+alias de="distrobox-host-exec --"
+
 
 export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -107,3 +110,27 @@ export NVM_DIR="$HOME/.config/nvm"
 
 eval $(thefuck --alias) 
 
+#export ANDROID_HOME=/home/invincent/Android/Sdk
+#export PATH=$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools
+#eval "$(zellij setup --generate-auto-start zsh)"
+
+# Auto-attach to Zellij session or create a new one
+function zellij_auto_attach() {
+    # Check if any session exists
+    if zellij list-sessions | grep -q '[[:alnum:]]'; then
+        # Attach to the last session (use `--create` to auto-create if none exists)
+        zellij attach -c
+    else
+        # Start a new Zellij session
+        zellij
+    fi
+}
+
+# Automatically run Zellij in new terminals
+if [[ -z $ZELLIJ ]]; then
+    zellij_auto_attach
+fi
+
+# Alias zellij
+alias zj="zellij"
+alias yz="yazi"
