@@ -1,0 +1,12 @@
+# Sets Theme 
+theme = tokyonight
+
+# Remove confirmation on close
+confirm-close-surface = false
+
+# Set shell integration to default to zsh
+#shell-integration = zsh
+
+# Hide Title Bar
+# window-decoration = false
+
