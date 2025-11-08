@@ -8,5 +8,8 @@ confirm-close-surface = false
 #shell-integration = zsh
 
 # Hide Title Bar
-# window-decoration = false
+window-decoration = false
 
+# Background Opacity
+background-opacity = 0.9
+keybind = shift+enter=text:\n

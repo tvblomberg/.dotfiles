@@ -36,6 +36,45 @@ export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-17.0.13.0.11-3.fc41.x86_64
 export PATH=$JAVA_HOME/bin:$PATH
 
 # ANDROID ROOT
-export ANDROID_SDK_ROOT=~/Android/Sdk
+export ANDROID_SDK_ROOT=$HOME/Android/Sdk
+export ANDROID_HOME=$ANDROID_SDK_ROOT
 export PATH=$ANDROID_SDK_ROOT/platform-tools:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$PATH
+export PATH=$PATH:$ANDROID_HOME/emulator
+export ANDROID_NDK=$ANDROID_SDK_ROOT/ndk/28.0.12674087
+
+# Docker shim
+if command -v podman &> /dev/null; then
+    alias docker="podman"
+else
+    alias docker="distrobox-host-exec -- podman"
+fi
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/invincent/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/invincent/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/invincent/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/invincent/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+# Added by .NET installer
+#export DOTNET_ROOT="/home/invincent/.dotnet"
+#export PATH="$DOTNET_ROOT:$PATH"
+#
+#
+export JETBRAINS_CLI_INSTALL="/home/invincent/Downloads/JetBrains.ReSharper.CommandLineTools.2025.1.4"
+export PATH="$JETBRAINS_CLI_INSTALL:$PATH"
+export BROWSER=brave-browser
+
+eval "$(thefuck --alias)"
+
+export EDITOR="nvim"
+export VISUAL="nvim"
 

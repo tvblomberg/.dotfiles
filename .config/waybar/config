@@ -17,7 +17,7 @@
         "custom/media"
     ],
     "modules-right": [
-	"custom/pwr",
+//	"custom/pwr",
         "pulseaudio",
         "cpu",
         "memory",

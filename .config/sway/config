@@ -37,9 +37,9 @@ output * bg ~/background-images/background.png fill
 # Example configuration:
 #
 #   output HDMI-A-1 resolution 1920x1080 position 1920,0
-output eDP-1 scale 1.5
+output eDP-1 scale 1.0
 output DP-10 resolution 2560x1440
-output DP-2 scale 1.5
+output DP-2 scale 1.0
 
 # Set your laptop screen name
 set $laptop_screen 'eDP-1'
@@ -50,7 +50,7 @@ set $lock_script swaylock
 
 # A sleep command used in several places.
 # We leave a bit of time for locking to happen before putting the system to sleep
-set $sleep $lock_script && sleep 5 && systemctl suspend
+set $sleep $lock_script && sleep 5 && systemctl suspend-then-hibernate
 
 # Triggers a short notification
 set $notify dunstify --timeout 1500

@@ -128,9 +128,46 @@ function zellij_auto_attach() {
 
 # Automatically run Zellij in new terminals
 if [[ -z $ZELLIJ ]]; then
-    zellij_auto_attach
+#    zellij_auto_attach
 fi
 
 # Alias zellij
 alias zj="zellij"
 alias yz="yazi"
+
+# Android Studio
+export ANDROID_SDK_ROOT=$HOME/Android/Sdk
+export ANDROID_HOME=$ANDROID_SDK_ROOT
+export PATH=$ANDROID_SDK_ROOT/platform-tools:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$PATH
+export ANDROID_NDK=$ANDROID_SDK_ROOT/ndk/28.0.12674087
+export PATH=$PATH:$ANDROID_HOME/emulator
+export KUBE_CONFIG_PATH=~/.kube/config
+
+# Docker shim
+if command -v podman &> /dev/null; then
+    alias docker="podman"
+else
+    alias docker="distrobox-host-exec -- podman"
+fi
+
+# Added by .NET installer
+#export DOTNET_ROOT="/home/invincent/.dotnet"
+#export PATH="$DOTNET_ROOT:$PATH"
+
+# bun completions
+[ -s "/home/invincent/.bun/_bun" ] && source "/home/invincent/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+
+alias claude="/home/invincent/.claude/local/claude"
+
+export JETBRAINS_CLI_INSTALL="/home/invincent/Downloads/JetBrains.ReSharper.CommandLineTools.2025.1.4"
+
+export PATH="$JETBRAINS_CLI_INSTALL:$PATH"
+export BROWSER=brave-browser
+export EDITOR="nvim"
+export VISUAL="nvim"
+
